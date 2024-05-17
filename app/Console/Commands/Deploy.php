@@ -43,6 +43,5 @@ class Deploy extends Command
         $this->info(Artisan::output());
         Artisan::call("optimize:clear");
         $this->info(Artisan::output());
-
     }
 }
