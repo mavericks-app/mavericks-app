@@ -60,7 +60,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -75,4 +75,4 @@ jobs:
           app-name: 'mavericks'
           slot-name: 'Production'
           package: .
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C7EB7FD9FCD4DD38B9F800C7BFFB3C8 }}
