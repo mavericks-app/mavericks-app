@@ -61,9 +61,6 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Migrations
-        run: php artisan migrate
-
       - name: Login to Azure
         uses: azure/login@v1
         with:
