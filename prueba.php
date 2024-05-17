@@ -1,3 +1,3 @@
 <?php
-echo 'probando php';
+phpinfo();
 ?>
