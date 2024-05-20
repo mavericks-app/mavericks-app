@@ -18,6 +18,13 @@ class User extends BaseDomain
     public \DateTime $created_at;
     public \DateTime $updated_at;
     public string $token;
+    public string $password;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setToken(string $token)
     {
