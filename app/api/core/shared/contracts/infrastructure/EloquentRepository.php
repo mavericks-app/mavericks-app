@@ -57,14 +57,15 @@ class EloquentRepository implements RepositoryBD
 
     }
 
-    public function get():Collection
+    public function get():Array
     {
-        return $this->model::all();
+        $collect=$this->model::all();
+        return $collect->toArray();
     }
 
-    public function paginate($perPage = 15)
+    public function paginate($perPage = 15):Array
     {
-        return $this->model->paginate($perPage);
+        return $this->model->paginate($perPage)->toArray();
     }
 
 }

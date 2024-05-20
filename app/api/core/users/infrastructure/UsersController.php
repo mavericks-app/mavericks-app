@@ -35,10 +35,22 @@ class UsersController extends BaseController implements CrudController
 
     }
 
+
+    public function get(Request $request)
+    {
+
+        $user = $this->users->getId($request->id);
+
+        if ($user) {
+            return $this->sendResponse($user, 'User get');
+        }
+
+    }
+
     public function index(Request $request)
     {
 
-        $users = $this->users->get();
+        $users = $this->users->paginate();
 
         if ($users) {
             return $this->sendResponse($users, 'Users list');

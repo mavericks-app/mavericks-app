@@ -33,14 +33,16 @@ abstract class BaseApplication
 
     public function remove($id)
     {
-        $user=$this->repository->remove($id);
-        return $user;
-
+        return $this->repository->remove($id);
     }
 
-    public function get($data=[])
+    public function getId($id)
     {
-        $arr=$this->repository->get()->toArray();
+        return $this->repository->find($id);
+    }
+    public function index($data=[])
+    {
+        $arr=$this->repository->get();
         $users=[];
         if(count($arr)>0){
             foreach($arr as $row) {
@@ -53,7 +55,7 @@ abstract class BaseApplication
 
     public function paginate($data=[])
     {
-        $arr=$this->repository->paginate()->toArray();
+        $arr=$this->repository->paginate();
         if(count($arr["data"])>0){
             foreach($arr["data"] as $index => $row) {
                 $arr["data"][$index]= $this->domainClass::create($row);
