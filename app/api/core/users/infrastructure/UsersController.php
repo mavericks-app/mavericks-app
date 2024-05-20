@@ -35,7 +35,7 @@ class UsersController extends BaseController implements CrudController
 
     }
 
-    public function get(Request $request)
+    public function index(Request $request)
     {
 
         $users = $this->users->get();

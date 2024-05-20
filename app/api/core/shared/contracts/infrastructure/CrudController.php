@@ -19,5 +19,5 @@ interface CrudController
 
     public function remove(Request $request);
 
-    public function get(Request $request);
+    public function index(Request $request);
 }
