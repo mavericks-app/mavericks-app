@@ -6,18 +6,20 @@ Fecha: 12/05/2024
 */
 namespace App\api\core\users\application;
 
+use App\api\core\shared\contracts\domain\BaseDomain;
+use App\api\core\users\domain\UserContract;
 use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\core\users\infrastructure\UserRepository;
 use App\api\core\users\domain\User;
-use Mockery\Exception;
+
 
 class Users extends BaseApplication
 {
 
-    protected $repository;
-    protected $domainClass;
-    protected $userService;
+    protected RepositoryBD $repository;
+    protected  $domainClass;
+    protected UserContract $userService;
 
     public function __construct(UserContract $userService,RepositoryBD $repository)
     {

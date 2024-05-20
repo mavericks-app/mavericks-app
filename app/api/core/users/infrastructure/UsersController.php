@@ -70,9 +70,8 @@ class UsersController extends BaseController implements CrudController
 
         $data = $request->validate([
             'id'=>['required'],
-            'name'=>['string'],
-            'password'=>['string'],
-            'email'=>['string']
+            'name'=>['nullable','string'],
+            'password'=>['nullable','string']
         ]);
 
         $user = $this->users->update($data);
