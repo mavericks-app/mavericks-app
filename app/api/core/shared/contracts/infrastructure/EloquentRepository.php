@@ -28,7 +28,7 @@ class EloquentRepository implements RepositoryBD
     public function find($id):?BaseDomain{
         $this->model=$this->model::findOrFail($id);
         if($this->model){
-            return $this->domainClass::create($this->model->toArray());
+            return $this->domain::create($this->model->toArray());
         }
         return null;
     }
@@ -37,7 +37,7 @@ class EloquentRepository implements RepositoryBD
 
 
         $this->model=$this->model->create((array) $domain);
-        return $this->domainClass::create($this->model->toArray());
+        return $this->domain::create($this->model->toArray());
 
     }
 
@@ -47,7 +47,7 @@ class EloquentRepository implements RepositoryBD
 
         $this->model->update((array)$domain);
 
-        return $this->domainClass::create($this->model->toArray());
+        return $this->domain::create($this->model->toArray());
     }
 
     public function remove($id):bool{
