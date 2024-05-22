@@ -14,6 +14,7 @@ class UsersController extends BaseController
     public function login(Request $request, Users $users)
     {
 
+
            $request->merge([
                'email' => 'info@mavericks.com',
                'password' => 'mavericks',
