@@ -28,7 +28,7 @@ class UsersController extends BaseController
            $success = $users->login($credentials);
 
            if ($success) {
-               return $this->sendResponse($success, 'User login successfully.');
+               return $this->sendResponse($success, 'User login successfully. Éxito');
            } else {
                throw new UnauthorizedHttpException("Unauthorized");
            }
