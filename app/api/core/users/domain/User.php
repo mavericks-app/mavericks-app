@@ -8,7 +8,7 @@ Fecha: 15/05/2024
 
 namespace App\api\core\users\domain;
 use App\api\core\shared\contracts\domain\BaseDomain;
-use Shureban\LaravelObjectMapper\MappableTrait;
+
 
 class User extends BaseDomain
 {
@@ -18,6 +18,13 @@ class User extends BaseDomain
     public \DateTime $created_at;
     public \DateTime $updated_at;
     public string $token;
+    public string $password;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setToken(string $token)
     {

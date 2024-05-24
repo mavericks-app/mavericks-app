@@ -6,7 +6,7 @@ Fecha: 12/05/2024
 */
 
 
-namespace App\api\core\users\application;
+namespace App\api\core\users\domain;
 
 interface UserContract
 {

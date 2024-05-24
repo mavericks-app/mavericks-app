@@ -1,4 +1,5 @@
 <!---
-mavericks-app/mavericks-app is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
+Configuracion Azure copiar nginx default
+
+cp /home/site/wwwroot/default /etc/nginx/sites-available/default && cp /home/site/wwwroot/default /etc/nginx/sites-enabled/default && service nginx reload
 --->

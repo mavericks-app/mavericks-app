@@ -11,7 +11,7 @@ namespace  App\api\core\shared\contracts\domain;
 use App\api\core\users\domain\User;
 use Shureban\LaravelObjectMapper\MappableTrait;
 
-class BaseDomain
+abstract class BaseDomain
 {
     use MappableTrait;
 
@@ -24,5 +24,7 @@ class BaseDomain
     {
         return (new static())->mapFromJson($json);
     }
+
+    abstract  function getId();
 
 }
