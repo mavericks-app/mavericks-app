@@ -47,6 +47,12 @@ class Users extends BaseApplication
 
     }
 
+    public function logout()
+    {
+
+        return $this->userService->logout();
+    }
+
 
 
 }

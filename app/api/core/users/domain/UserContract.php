@@ -12,7 +12,7 @@ interface UserContract
 {
   public function getUser();
   public function autenticate($credentials);
-
+  public function logout();
   public function getToken();
 
 }

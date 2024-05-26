@@ -72,7 +72,10 @@ return [
      * ],
      * ```
      */
-    'servers' => null,
+    'servers' => [
+        'Production' => env('API_PRODUCTION_URL', 'https://api.mavericks.homes/api'),
+        'Local' => env('API_LOCAL_URL', 'http://localhost/api'),
+    ],
 
     'middleware' => [
         'web',

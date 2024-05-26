@@ -7,10 +7,14 @@ use App\api\core\users\application\Users;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+
 
 class UsersController extends BaseController implements CrudController
 {
+
+    protected $users;
 
     public function __construct(Users $users)
     {
@@ -34,6 +38,13 @@ class UsersController extends BaseController implements CrudController
            }
 
     }
+
+    public function logout(Request $request){
+
+        $this->users->logout();
+        return $this->sendResponse([], 'User logout successfully.');
+    }
+
 
 
     public function get(Request $request)
@@ -107,4 +118,6 @@ class UsersController extends BaseController implements CrudController
         }
 
     }
+
+
 }
