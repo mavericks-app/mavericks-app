@@ -15,4 +15,6 @@ interface  RepositoryBD
 
      public function remove($id): bool;
 
+    public function where($params):Collection;
+
 }

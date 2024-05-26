@@ -33,6 +33,31 @@ class EloquentRepository implements RepositoryBD
         return null;
     }
 
+    public function where($params):Collection{
+
+        $return=new Collection();
+
+        $query = clone $this->model; // Clonar la instancia original del modelo
+
+        if(count($params)>0){
+           foreach ($params as $key => $value) {
+               $query = $this->model->where($key, $value);
+            }
+
+        }
+
+        $collection=$query->get();
+
+         if ($collection->count()>0){
+            foreach($collection as $row){
+                $return->push($this->domain::create($row->toArray()));
+            }
+        }
+
+        return $return;
+
+    }
+
     public function save(BaseDomain $domain):?BaseDomain{
 
 
