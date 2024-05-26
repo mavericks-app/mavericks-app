@@ -9,7 +9,7 @@ class RestrictedDocsAccess
 
     public function handle($request, \Closure $next)
     {
-        if (app()->environment('local') || app()->environment('production') || app()->environment('staging') ) {
+        if (app()->environment('local')) {
             return $next($request);
         }
         if (Gate::allows('viewApiDocs')) {
