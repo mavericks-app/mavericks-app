@@ -15,9 +15,14 @@ use App\Models\User as UserApp;
 
 class UserRepository extends EloquentRepository
 {
-    public function __construct(UserApp $userModel,User $userDomain)
+    public function __construct(UserApp $userModel, User $userDomain)
     {
-        parent::__construct($userModel,$userDomain);
+        parent::__construct($userModel, $userDomain);
     }
 
+    public function checkUniqueEmail($email)
+    {
+        $users= $this->where(["email"=>$email]);
+        return !($users->count()>0);
+    }
 }

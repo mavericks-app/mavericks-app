@@ -12,18 +12,19 @@ use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\core\users\infrastructure\UserRepository;
 use App\api\core\users\domain\User;
+use Mockery\Exception;
 
 
 class Users extends BaseApplication
 {
 
-    protected RepositoryBD $repository;
+    protected UserRepository $repository;
     protected  $domainClass;
     protected UserContract $userService;
 
     public function __construct(UserContract $userService,RepositoryBD $repository)
     {
-        $this->repository=$repository;
+         $this->repository=$repository;
         $this->userService=$userService;
         $this->domainClass=User::class;
 
@@ -45,6 +46,15 @@ class Users extends BaseApplication
         }
 
 
+    }
+
+    public function store($data)
+    {
+        if($this->repository->checkUniqueEmail($data["email"])) {
+           return parent::store($data);
+        }else{
+            throw new Exception("User exists email");
+        }
     }
 
     public function logout()

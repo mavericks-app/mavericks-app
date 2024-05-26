@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Exception;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 
@@ -107,14 +108,20 @@ class UsersController extends BaseController implements CrudController
 
     public function remove(Request $request)
     {
-        $data = $request->validate([
-            'id'=>['required']
-        ]);
+        try {
 
-        $user = $this->users->remove($request->id);
+            $data = $request->validate([
+                'id' => ['required']
+            ]);
 
-        if ($user) {
-            return $this->sendResponse($user, 'User deleted');
+            $user = $this->users->remove($request->id);
+
+            if ($user) {
+                return $this->sendResponse($user, 'User deleted');
+            }
+
+        }catch (\Exception $e){
+            throw  new Exception("Not found user");
         }
 
     }
