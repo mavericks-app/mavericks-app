@@ -21,6 +21,9 @@ class UsersController extends BaseController implements CrudController
         $this->users=$users;
     }
 
+    /**
+     * @unauthenticated
+     */
     public function login(Request $request)
     {
 
