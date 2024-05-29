@@ -74,6 +74,7 @@ return [
      */
     'servers' => [
         'Production' => env('API_PRODUCTION_URL', 'https://api.mavericks.homes/api'),
+        'Staging' => env('API_STAGING_URL', 'https://api-st.mavericks.homes/api'),
         'Local' => env('API_LOCAL_URL', 'http://localhost/api'),
     ],
 
