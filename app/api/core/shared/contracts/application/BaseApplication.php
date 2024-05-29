@@ -13,6 +13,10 @@ use App\api\core\shared\contracts\domain\RepositoryBD;
 abstract class BaseApplication
 {
 
+    public function __construct()
+    {
+
+    }
 
     public function store($data)
     {
