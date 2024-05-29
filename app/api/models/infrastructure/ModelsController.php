@@ -34,6 +34,11 @@ class ModelsController extends BaseController implements CrudController
 
     }
 
+    /**
+     * Modelos base
+     *
+     * Modelos base para crear otros endpoints
+     */
     public function index(Request $request)
     {
 
