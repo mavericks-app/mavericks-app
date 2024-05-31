@@ -78,9 +78,9 @@ class CreateEndpoint extends Command
         $this->createModel();
         $this->createProvider();
 
-        if($migration){
+        /*if($migration){
             $this->createMigration();
-        }
+        }*/
 
 
         $this->info("Directory structure duplicated from {$baseUrl} to {$newUrl}.");

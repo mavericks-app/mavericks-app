@@ -10,7 +10,7 @@ use App\Models\Template as ModelLaravel;
 use App\api\templates\domain\Template as ModelDomain;
 
 
-class TemplateProvider extends ServiceProvider
+class TemplatesProvider extends ServiceProvider
 {
     /**
      * Register services.
