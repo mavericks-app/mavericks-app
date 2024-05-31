@@ -4,7 +4,6 @@ namespace App\api\core\users\infrastructure;
 use App\api\core\users\domain\UserContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Mockery\Exception;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserGuard implements UserContract {

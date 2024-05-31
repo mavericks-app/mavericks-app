@@ -8,7 +8,6 @@ Fecha: 15/05/2024
 
 
 namespace  App\api\core\shared\contracts\domain;
-use App\api\core\users\domain\User;
 use Shureban\LaravelObjectMapper\MappableTrait;
 
 abstract class BaseDomain

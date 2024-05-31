@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Mockery\Exception;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 
@@ -22,6 +21,9 @@ class UsersController extends BaseController implements CrudController
         $this->users=$users;
     }
 
+    /**
+     * @unauthenticated
+     */
     public function login(Request $request)
     {
 
@@ -121,7 +123,7 @@ class UsersController extends BaseController implements CrudController
             }
 
         }catch (\Exception $e){
-            throw  new Exception("Not found user");
+            throw  new \Exception("Not found user");
         }
 
     }
