@@ -1,9 +1,9 @@
 <?php
-namespace App\api\models\infrastructure;
+namespace App\api\templates\infrastructure;
 
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
-use App\api\models\application\Models;
+use App\api\templates\application\Templates;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 
-class ModelsController extends BaseController implements CrudController
+class TemplateController extends BaseController implements CrudController
 {
 
     protected $models;
 
-    public function __construct(Models $models)
+    public function __construct(Templates $models)
     {
        $this->models=$models;
     }
@@ -29,7 +29,7 @@ class ModelsController extends BaseController implements CrudController
         $model = $this->models->getId($request->id);
 
         if ($model) {
-            return $this->sendResponse($model, 'Model get');
+            return $this->sendResponse($model, 'Templates get');
         }
 
     }
@@ -45,7 +45,7 @@ class ModelsController extends BaseController implements CrudController
         $models = $this->models->paginate();
 
         if ($models) {
-            return $this->sendResponse($models, 'Models list');
+            return $this->sendResponse($models, 'Templates list');
         }
 
     }
@@ -63,7 +63,7 @@ class ModelsController extends BaseController implements CrudController
         $model = $this->models->store($data);
 
         if ($model) {
-            return $this->sendResponse($model, 'Model create');
+            return $this->sendResponse($model, 'Templates create');
         }
 
     }
@@ -79,7 +79,7 @@ class ModelsController extends BaseController implements CrudController
         $model = $this->models->update($data);
 
         if ($model) {
-            return $this->sendResponse($model, 'User update');
+            return $this->sendResponse($model, 'Templates update');
         }
 
     }
@@ -95,11 +95,11 @@ class ModelsController extends BaseController implements CrudController
             $model = $this->models->remove($request->id);
 
             if ($model) {
-                return $this->sendResponse($model, 'Model deleted');
+                return $this->sendResponse($model, 'Templates deleted');
             }
 
         }catch (\Exception $e){
-            throw  new \Exception("Not found model");
+            throw  new \Exception("Not found model template");
         }
 
     }

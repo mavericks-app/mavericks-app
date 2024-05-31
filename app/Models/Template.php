@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model as ModelLaravel;
+use Illuminate\Database\Eloquent\Model;
 
-class Model extends ModelLaravel
+class Template extends Model
 {
     use HasFactory;
     /**
