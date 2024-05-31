@@ -6,11 +6,11 @@ use App\api\templates\infrastructure\TemplateRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use App\api\templates\application\Templates;
-use App\Models\Template;
+use App\Models\Template as ModelLaravel;
 use App\api\templates\domain\Template as ModelDomain;
 
 
-class TemplateService extends ServiceProvider
+class TemplateProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -20,7 +20,7 @@ class TemplateService extends ServiceProvider
 
         $this->app->bind(TemplateRepository::class, function (Application $app) {
             return new TemplateRepository(
-                $app->make(Template::class),
+                $app->make(ModelLaravel::class),
                 $app->make(ModelDomain::class)
             );
         });
