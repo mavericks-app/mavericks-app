@@ -18,6 +18,13 @@ class Template extends Model
         'email'
     ];
 
+    /**
+     * Indica si el modelo debe tener timestamps.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
 
 
 }

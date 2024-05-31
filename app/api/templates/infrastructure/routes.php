@@ -1,7 +1,6 @@
 <?php
 namespace App\api\templates\infrastructure;
-use App\api\templates\infrastructure\TemplateController;
-use App\Http\Middleware\Cors;
+use App\api\templates\infrastructure\TemplatesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,11 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/templates', [TemplateController::class, 'index']);
-    Route::get('/templates/{id}', [TemplateController::class, 'get']);
-    Route::post('/templates', [TemplateController::class, 'store']);
-    Route::put('/templates/{id}', [TemplateController::class, 'update']);
-    Route::delete('/templates/{id}', [TemplateController::class, 'remove']);
+    Route::get('/templates', [TemplatesController::class, 'index']);
+    Route::get('/templates/{id}', [TemplatesController::class, 'get']);
+    Route::post('/templates', [TemplatesController::class, 'store']);
+    Route::put('/templates/{id}', [TemplatesController::class, 'update']);
+    Route::delete('/templates/{id}', [TemplatesController::class, 'remove']);
 });
 
 

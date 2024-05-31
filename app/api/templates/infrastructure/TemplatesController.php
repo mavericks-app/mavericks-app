@@ -4,21 +4,18 @@ namespace App\api\templates\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\templates\application\Templates;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 
-class TemplateController extends BaseController implements CrudController
+
+class TemplatesController extends BaseController implements CrudController
 {
 
-    protected $models;
+    protected $templates;
 
-    public function __construct(Templates $models)
+    public function __construct(Templates $templates)
     {
-       $this->models=$models;
+       $this->templates=$templates;
     }
 
 
@@ -26,26 +23,26 @@ class TemplateController extends BaseController implements CrudController
     public function get(Request $request)
     {
 
-        $model = $this->models->getId($request->id);
+        $template = $this->templates->getId($request->id);
 
-        if ($model) {
-            return $this->sendResponse($model, 'Templates get');
+        if ($template) {
+            return $this->sendResponse($template, 'Templates get');
         }
 
     }
 
     /**
-     * Modelos base
+     * Templates
      *
-     * Modelos base para crear otros endpoints
+     *
      */
     public function index(Request $request)
     {
 
-        $models = $this->models->paginate();
+        $templates = $this->templates->paginate();
 
-        if ($models) {
-            return $this->sendResponse($models, 'Templates list');
+        if ($templates) {
+            return $this->sendResponse($templates, 'Templates list');
         }
 
     }
@@ -60,10 +57,10 @@ class TemplateController extends BaseController implements CrudController
             ]);
 
 
-        $model = $this->models->store($data);
+        $template = $this->templates->store($data);
 
-        if ($model) {
-            return $this->sendResponse($model, 'Templates create');
+        if ($template) {
+            return $this->sendResponse($template, 'Templates create');
         }
 
     }
@@ -76,10 +73,10 @@ class TemplateController extends BaseController implements CrudController
             'name'=>['nullable','string'],
         ]);
 
-        $model = $this->models->update($data);
+        $template = $this->templates->update($data);
 
-        if ($model) {
-            return $this->sendResponse($model, 'Templates update');
+        if ($template) {
+            return $this->sendResponse($template, 'Templates update');
         }
 
     }
@@ -92,10 +89,10 @@ class TemplateController extends BaseController implements CrudController
                 'id' => ['required']
             ]);
 
-            $model = $this->models->remove($request->id);
+            $template = $this->templates->remove($request->id);
 
-            if ($model) {
-                return $this->sendResponse($model, 'Templates deleted');
+            if ($template) {
+                return $this->sendResponse($template, 'Templates deleted');
             }
 
         }catch (\Exception $e){
