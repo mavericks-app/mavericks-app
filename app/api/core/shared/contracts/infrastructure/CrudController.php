@@ -7,9 +7,7 @@ Fecha: 20/05/2024
 
 
 namespace App\api\core\shared\contracts\infrastructure;
-
 use App\api\core\shared\contracts\application\BaseApplication;
-use App\api\core\users\application\Users;
 use Illuminate\Http\Request;
 
 interface CrudController

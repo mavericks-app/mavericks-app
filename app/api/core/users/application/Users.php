@@ -12,7 +12,6 @@ use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\core\users\infrastructure\UserRepository;
 use App\api\core\users\domain\User;
-use Mockery\Exception;
 
 
 class Users extends BaseApplication
@@ -24,7 +23,9 @@ class Users extends BaseApplication
 
     public function __construct(UserContract $userService,RepositoryBD $repository)
     {
-         $this->repository=$repository;
+
+        parent::__construct();
+        $this->repository=$repository;
         $this->userService=$userService;
         $this->domainClass=User::class;
 
