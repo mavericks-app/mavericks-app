@@ -55,6 +55,11 @@ class CreateEndpoint extends Command
         $pluralName=$this->argument("pluralName");
         $migration=$this->option("migration");
 
+        if (strlen($pluralName) <= strlen($singularName)) {
+            $this->error('The pluralName is not longer than the singularName.');
+            return 1;
+        }
+
         $this->remplaces=[
             $this->pluralTemplateLower=>strtolower($pluralName),
             $this->pluralTemplateUpper=>ucfirst(strtolower($pluralName)),
@@ -66,7 +71,7 @@ class CreateEndpoint extends Command
 
         if (!File::isDirectory($baseUrl)) {
             $this->error("Base directory {$baseUrl} does not exist.");
-            return;
+            return 1;
         }
 
         if (!File::isDirectory($newUrl)) {
@@ -84,6 +89,7 @@ class CreateEndpoint extends Command
 
 
         $this->info("Directory structure duplicated from {$baseUrl} to {$newUrl}.");
+        return 0;
     }
 
     protected function duplicateStructure($baseUrl, $newUrl)
