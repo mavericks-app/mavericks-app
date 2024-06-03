@@ -160,7 +160,7 @@ class CreateEndpoint extends Command
 
         if(count($matches[0])>0){
             foreach($matches[0] as $match){
-                $file.=$match;
+                $file.=$match."\r\n";
             }
             $file.="    ".$newProvider.",\r\n";
         }
