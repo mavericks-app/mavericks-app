@@ -6,7 +6,7 @@ Fecha: 12/05/2024
 */
 namespace App\api\core\users\application;
 
-use App\api\core\shared\contracts\domain\BaseDomain;
+
 use App\api\core\users\domain\UserContract;
 use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
@@ -54,7 +54,7 @@ class Users extends BaseApplication
         if($this->repository->checkUniqueEmail($data["email"])) {
            return parent::store($data);
         }else{
-            throw new Exception("User exists email");
+            throw new \Exception("User exists email");
         }
     }
 

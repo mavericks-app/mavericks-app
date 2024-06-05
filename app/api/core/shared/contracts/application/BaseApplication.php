@@ -21,17 +21,17 @@ abstract class BaseApplication
     public function store($data)
     {
 
-        $userDomain=$this->domainClass::create($data);
-        $user=$this->repository->save($userDomain);
-        return $user;
+        $modelDomain=$this->domainClass::create($data);
+        $modelDomain=$this->repository->save($modelDomain);
+        return $modelDomain;
 
     }
 
     public function update($data)
     {
-        $userDomain=$this->domainClass::create($data);
-        $user=$this->repository->update($userDomain);
-        return $user;
+        $modelDomain=$this->domainClass::create($data);
+        $modelDomain=$this->repository->update($modelDomain);
+        return $modelDomain;
 
     }
 
@@ -47,14 +47,14 @@ abstract class BaseApplication
     public function index($data=[])
     {
         $arr=$this->repository->get();
-        $users=[];
+        $models=[];
         if(count($arr)>0){
             foreach($arr as $row) {
-                $users[] = $this->domainClass::create($row);
+                $models[] = $this->domainClass::create($row);
             }
         }
 
-        return $users;
+        return $models;
     }
 
     public function paginate($data=[])
