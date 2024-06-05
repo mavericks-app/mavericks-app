@@ -70,5 +70,5 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'mavericks-st'
-          slot-name: 'Production'
+          slot-name: 'Staging'
           package: .

@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 class CreateEndpoint extends Command
 {
@@ -55,6 +56,11 @@ class CreateEndpoint extends Command
         $pluralName=$this->argument("pluralName");
         $migration=$this->option("migration");
 
+        if (strlen($pluralName) <= strlen($singularName)) {
+            $this->error('The pluralName is not longer than the singularName.');
+            return 1;
+        }
+
         $this->remplaces=[
             $this->pluralTemplateLower=>strtolower($pluralName),
             $this->pluralTemplateUpper=>ucfirst(strtolower($pluralName)),
@@ -66,7 +72,7 @@ class CreateEndpoint extends Command
 
         if (!File::isDirectory($baseUrl)) {
             $this->error("Base directory {$baseUrl} does not exist.");
-            return;
+            return 1;
         }
 
         if (!File::isDirectory($newUrl)) {
@@ -78,12 +84,13 @@ class CreateEndpoint extends Command
         $this->createModel();
         $this->createProvider();
 
-        /*if($migration){
-            $this->createMigration();
-        }*/
+        if($migration){
+            $this->createMigration($pluralName);
+        }
 
 
         $this->info("Directory structure duplicated from {$baseUrl} to {$newUrl}.");
+        return 0;
     }
 
     protected function duplicateStructure($baseUrl, $newUrl)
@@ -131,6 +138,46 @@ class CreateEndpoint extends Command
             $this->remplaceFile($newFilePath);
             $this->info("File duplicated: {$newFilePath}");
         }
+
+        //Añadir a los providers la clase.
+        $configProviders=base_path()."/bootstrap/providers.php";
+        $content = File::get($configProviders);
+        $nameClass=str_replace(".php","",basename($newFilePath));
+        $content=$this->addProviderToConfig($content,"App\Providers\\".$nameClass."::class");
+        File::put($configProviders, $content);
+
+    }
+
+   protected  function addProviderToConfig($content, $newProvider) {
+
+       // Define the pattern to match lines starting with 'App\Providers'
+       $pattern = '/^\s*App\\\\Providers\\\\[A-Za-z0-9_]+::class,\s*$/m';
+
+       // Perform the matching
+       preg_match_all($pattern, $content, $matches);
+
+       $file="<?php \r\n \r\n return [\r\n";
+
+        if(count($matches[0])>0){
+            foreach($matches[0] as $match){
+                $file.=$match."\r\n";
+            }
+            $file.="    ".$newProvider.",\r\n";
+        }
+
+       $file.="];\r\n";
+
+       return $file;
+
+   }
+
+
+
+    protected function createMigration($name)
+    {
+        // Run the migration command
+        Artisan::call('make:migration', ['name' => "create_{$name}"]);
+        $this->info('Migration created successfully.');
     }
 
 
