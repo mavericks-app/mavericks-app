@@ -35,7 +35,7 @@ return [
         /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => 'Mavericks API',
+        'description' => env('APP_NAME').' - '.env('APP_ENV'),
     ],
 
     /*
