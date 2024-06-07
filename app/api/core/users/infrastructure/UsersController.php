@@ -49,8 +49,7 @@ class UsersController extends BaseController implements CrudController
     }
 
     public function whoami(Request $request){
-
-        return response()->json($request->user());
+         return $this->sendResponse($this->users->whoami(), 'User whoami');
     }
 
 
