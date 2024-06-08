@@ -90,5 +90,14 @@ jobs:
           slot-name: 'Production'
           package: .
 
+      - name: Verify database configuration
+        run: php artisan tinker --execute="print_r(config('database.connections.mysql'))"
+
+      - name: List tables before migration
+        run: php artisan tinker --execute="\DB::select('SHOW TABLES');"
+
       - name: Run migrations
         run: php artisan migrate --force
+
+      - name: List tables after migration
+        run: php artisan tinker --execute="\DB::select('SHOW TABLES');"
