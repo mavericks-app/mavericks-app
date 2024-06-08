@@ -72,3 +72,9 @@ jobs:
           app-name: 'mavericks-st'
           slot-name: 'Production'
           package: .
+
+      - name: Run migrations
+        run: |
+          az webapp ssh --name mavericks-st --resource-group hackathon-mavericks --command 'php artisan migrate --force'
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_626CB116FE2E46CA9009EB426892F16F }}
