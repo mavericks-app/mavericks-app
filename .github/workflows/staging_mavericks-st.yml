@@ -14,7 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v4
+
+      - name: Copy environment file
+        run: cp .env.staging .env
 
       - name: Check PHP version before setup
         run: php -v
