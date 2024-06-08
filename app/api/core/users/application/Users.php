@@ -64,6 +64,11 @@ class Users extends BaseApplication
         return $this->userService->logout();
     }
 
+    public function whoami()
+    {
+        return $this->domainClass::create($this->userService->getUser()->toArray());
+    }
+
 
 
 }

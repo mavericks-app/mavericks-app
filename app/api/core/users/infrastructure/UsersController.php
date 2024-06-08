@@ -48,6 +48,10 @@ class UsersController extends BaseController implements CrudController
         return $this->sendResponse([], 'User logout successfully.');
     }
 
+    public function whoami(Request $request){
+         return $this->sendResponse($this->users->whoami(), 'User whoami');
+    }
+
 
 
     public function get(Request $request)

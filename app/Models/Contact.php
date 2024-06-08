@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Template extends Model
+class Contact extends Model
 {
     use HasFactory;
     /**
@@ -16,8 +15,26 @@ class Template extends Model
      */
     protected $fillable = [
         'name',
-        'email'
+        'last_name',
+        'birth_date',
+        'email',
+        'phone',
+        'phone2',
+        'photo',
+        'address',
+        'user_id',
     ];
+
+    /**
+     * Set the contact's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst(strtolower($value));
+    }
 
     /**
      * Indica si el modelo debe tener timestamps.
@@ -27,18 +44,5 @@ class Template extends Model
     public $timestamps = false;
 
 
-    public function name():Attribute
-    {
-        return Attribute::make(
-            //Accesor
-            get: function ($value){
-                return ucfirst($value);
-            },
-            //Mutador
-            set: function ($value){
-                return strtolower($value);
-            }
-        );
-    }
 
 }
