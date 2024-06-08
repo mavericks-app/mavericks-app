@@ -94,13 +94,41 @@ jobs:
           package: .
 
       - name: Verify database configuration
-        run: php artisan tinker --execute="print_r(config('database.connections.mysql'))"
+        run: php artisan tinker --execute="print_r(config('database.connections.pgsql'))"
+        env:
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION_ST }}
+          DB_HOST: ${{ secrets.DB_HOST_ST }}
+          DB_PORT: ${{ secrets.DB_PORT_ST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE_ST }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME_ST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD_ST }}
 
       - name: List tables before migration
         run: php artisan tinker --execute="\DB::select('SHOW TABLES');"
+        env:
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION_ST }}
+          DB_HOST: ${{ secrets.DB_HOST_ST }}
+          DB_PORT: ${{ secrets.DB_PORT_ST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE_ST }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME_ST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD_ST }}
 
       - name: Run migrations
         run: php artisan migrate --force
+        env:
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION_ST }}
+          DB_HOST: ${{ secrets.DB_HOST_ST }}
+          DB_PORT: ${{ secrets.DB_PORT_ST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE_ST }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME_ST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD_ST }}
 
       - name: List tables after migration
         run: php artisan tinker --execute="\DB::select('SHOW TABLES');"
+        env:
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION_ST }}
+          DB_HOST: ${{ secrets.DB_HOST_ST }}
+          DB_PORT: ${{ secrets.DB_PORT_ST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE_ST }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME_ST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD_ST }}
