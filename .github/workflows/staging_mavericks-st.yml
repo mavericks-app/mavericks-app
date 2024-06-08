@@ -74,4 +74,4 @@ jobs:
           package: .
 
       - name: Run migrations
-        run: artisan migrate --force
+        run: php artisan migrate --force
