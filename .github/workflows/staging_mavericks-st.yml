@@ -19,12 +19,6 @@ jobs:
       - name: Copy environment file
         run: cp .env.staging .env
 
-      - name: Load environment variables from .env file
-        run: |
-          set -o allexport
-          source .env
-          set +o allexport
-
       - name: Check PHP version before setup
         run: php -v
 
