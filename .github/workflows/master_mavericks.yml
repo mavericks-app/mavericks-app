@@ -16,9 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Copy environment file
-        run: cp .env.production .env
-
       - name: Check PHP version before setup
         run: php -v
 
