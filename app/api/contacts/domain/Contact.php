@@ -15,6 +15,14 @@ class Contact extends BaseDomain
     public string $name;
     public string $lastName;
     public string $email;
+    public string $birthDate;
+    public string $phone;
+    public string $phone2;
+    public string $photo;
+    public string $address;
+    public int $userId;
+    public \DateTime $createdAt;
+    public \DateTime $updatedAt;
 
 
     public function getId()
@@ -22,5 +30,49 @@ class Contact extends BaseDomain
         return $this->id;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getBirthDate(): string
+    {
+        return $this->birthDate;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getPhone2(): string
+    {
+        return $this->phone2;
+    }
+
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
 
 }

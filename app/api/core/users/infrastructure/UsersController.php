@@ -108,9 +108,7 @@ class UsersController extends BaseController implements CrudController
 
         if ($user) {
             return $this->sendResponse($user, 'User update');
-        }
-
-    }
+        }}
 
     public function remove(Request $request)
     {

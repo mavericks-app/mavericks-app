@@ -32,7 +32,7 @@ class TemplatesController extends BaseController implements CrudController
     }
 
     /**
-     * Templates
+     * templates.index
      *
      *
      */
