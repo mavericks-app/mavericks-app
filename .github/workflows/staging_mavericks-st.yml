@@ -19,6 +19,15 @@ jobs:
       - name: Copy environment file
         run: cp .env.staging .env
 
+      - name: Verify environment file copy
+        run: ls -la
+
+      - name: Verify content of .env.staging
+        run: cat .env.staging
+
+      - name: Verify content of .env
+        run: cat .env
+
       - name: Check PHP version before setup
         run: php -v
 
