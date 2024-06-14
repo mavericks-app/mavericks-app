@@ -102,12 +102,5 @@ jobs:
           slot-name: 'Production'
           package: .
 
-      - name: Run migrations
-        run: php artisan migrate --force
-        env:
-          DB_CONNECTION: ${{ secrets.DB_CONNECTION_ST }}
-          DB_HOST: ${{ secrets.DB_HOST_ST }}
-          DB_PORT: ${{ secrets.DB_PORT_ST }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE_ST }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME_ST }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD_ST }}
+      - name: Run Command deploy.php
+        run: php artisan deploy
