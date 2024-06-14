@@ -34,6 +34,7 @@ class ContactsController extends BaseController implements CrudController
             return $this->sendError('Contact not found', 404);
         }
 
+        return $this->sendError('Contact not found', 404);
 
     }
 
@@ -78,15 +79,19 @@ class ContactsController extends BaseController implements CrudController
             return $this->sendResponse($contact, 'Contact created');
         }
 
+
+        return $this->sendError('Contact not found', 404);
+
     }
 
     public function update(Request $request)
     {
 
         $data = $request->validate([
+            'id' => ['required', 'integer'],
             'name' => ['nullable', 'string', 'not_in:string'],
             'last_name' => ['nullable', 'string', 'not_in:string'],
-            'birth_date' => ['nullable', 'date', 'not_in:string'],
+            'birth_date' => ['nullable', 'date', 'date_format:Y-m-d', 'not_in:string'],
             'email' => ['nullable', 'string', 'email', 'not_in:user@example.com'],
             'phone' => ['nullable', 'string', 'not_in:string'],
             'phone2' => ['nullable', 'string', 'not_in:string'],
@@ -98,7 +103,6 @@ class ContactsController extends BaseController implements CrudController
 
         try {
 
-            $this->contacts = Contact::findOrFail($request->id);
             $contact = $this->contacts->update($data);
 
             if ($contact) {
@@ -107,6 +111,9 @@ class ContactsController extends BaseController implements CrudController
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Contact not found', 404);
         }
+
+
+        return $this->sendError('Contact not found', 404);
 
     }
 
@@ -128,7 +135,9 @@ class ContactsController extends BaseController implements CrudController
             return $this->sendError('Contact not found', 404);
         }
 
-    }
 
+        return $this->sendError('Contact not found', 404);
+
+    }
 
 }

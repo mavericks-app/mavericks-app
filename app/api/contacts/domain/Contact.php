@@ -15,12 +15,12 @@ class Contact extends BaseDomain
     public string $name;
     public string $lastName;
     public string $email;
-    public string $birthDate;
+    public string $birth_date;
     public string $phone;
     public string $phone2;
     public string $photo;
     public string $address;
-    public int $userId;
+    public int $user_id;
     public \DateTime $createdAt;
     public \DateTime $updatedAt;
 
@@ -47,7 +47,7 @@ class Contact extends BaseDomain
 
     public function getBirthDate(): string
     {
-        return $this->birthDate;
+        return $this->birth_date;
     }
 
     public function getPhone(): string
@@ -72,7 +72,7 @@ class Contact extends BaseDomain
 
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
 }
