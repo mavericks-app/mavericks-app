@@ -23,7 +23,11 @@ class CreateContactTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $this->assertEquals($user->id, auth()->user()->id, 'El usuario autenticado no es el esperado');
+        /** @var \App\Models\User $authenticatedUser */
+        $authenticatedUser = auth()->user();
+
+        // Ahora PhpStorm sabe que $authenticatedUser es una instancia de User
+        $this->assertEquals($user->id, $authenticatedUser->id, 'El usuario autenticado no es el esperado');
 
         // Arrange
         $contactData = [
