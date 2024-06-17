@@ -4,6 +4,7 @@ namespace App\api\core\users\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\core\users\application\Users;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,10 +58,15 @@ class UsersController extends BaseController implements CrudController
     public function get(Request $request)
     {
 
-        $user = $this->users->getId($request->id);
+        try{
+            $user = $this->users->getId($request->id);
 
-        if ($user) {
-            return $this->sendResponse($user, 'User get');
+            if ($user) {
+                return $this->sendResponse($user, 'User get');
+            }
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('User not found', 404);
         }
 
     }
@@ -99,16 +105,23 @@ class UsersController extends BaseController implements CrudController
     {
 
         $data = $request->validate([
-            'id'=>['required'],
-            'name'=>['nullable','string'],
-            'password'=>['nullable','string']
+            'id' => ['required'],
+            'name' => ['nullable', 'string'],
+            'password' => ['nullable', 'string']
         ]);
 
-        $user = $this->users->update($data);
+        try {
 
-        if ($user) {
-            return $this->sendResponse($user, 'User update');
-        }}
+            $user = $this->users->update($data);
+
+            if ($user) {
+                return $this->sendResponse($user, 'User update');
+            }
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('User not found', 404);
+        }
+
+    }
 
     public function remove(Request $request)
     {
@@ -124,8 +137,8 @@ class UsersController extends BaseController implements CrudController
                 return $this->sendResponse($user, 'User deleted');
             }
 
-        }catch (\Exception $e){
-            throw  new \Exception("Not found user");
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('User not found', 404);
         }
 
     }

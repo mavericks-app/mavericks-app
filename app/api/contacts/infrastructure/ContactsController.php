@@ -112,17 +112,16 @@ class ContactsController extends BaseController implements CrudController
         }
 
 
-        return $this->sendError('Contact not found', 404);
-
     }
 
     public function remove(Request $request)
     {
-        try {
 
-            $data = $request->validate([
-                'id' => ['required']
-            ]);
+        $data = $request->validate([
+            'id' => ['required']
+        ]);
+
+        try {
 
             $contact = $this->contacts->remove($request->id);
 
@@ -130,12 +129,9 @@ class ContactsController extends BaseController implements CrudController
                 return $this->sendResponse($contact, 'Contact deleted');
             }
 
-        }catch (\Exception $e){
+        }catch (ModelNotFoundException $e){
             return $this->sendError('Contact not found', 404);
         }
-
-
-        return $this->sendError('Contact not found', 404);
 
     }
 

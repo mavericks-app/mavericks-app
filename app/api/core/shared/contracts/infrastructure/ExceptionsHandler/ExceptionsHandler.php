@@ -7,8 +7,10 @@ Fecha: 15/05/2024
 
 namespace App\api\core\shared\contracts\infrastructure\ExceptionsHandler;
 use App\api\core\shared\contracts\infrastructure\ExceptionsHandler\DefaultExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 abstract class ExceptionsHandler
@@ -31,6 +33,9 @@ abstract class ExceptionsHandler
         else if($e instanceof UnauthorizedHttpException){
             $catch= new UnauthorizedExceptionHandler($e,$request);
         }
+        else if($e instanceof NotFoundHttpException){
+            $catch= new NotFoundHttpExceptionHandler($e,$request);
+        }
         else{
             $catch= new DefaultExceptionHandler($e,$request);
         }
@@ -41,3 +46,4 @@ abstract class ExceptionsHandler
 
 
 }
+
