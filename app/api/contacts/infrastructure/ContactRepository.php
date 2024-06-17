@@ -19,4 +19,9 @@ class ContactRepository extends EloquentRepository
         parent::__construct($model, $modelDomain);
     }
 
+    public function user()
+    {
+      return $this->model->user;
+    }
+
 }
