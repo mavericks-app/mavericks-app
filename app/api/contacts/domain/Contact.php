@@ -13,7 +13,7 @@ class Contact extends BaseDomain
 {
     public int $id;
     public string $name;
-    public string $lastName;
+    public string $last_name;
     public string $email;
     public string $birth_date;
     public string $phone;
@@ -37,7 +37,7 @@ class Contact extends BaseDomain
 
     public function getLastName(): string
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     public function getEmail(): string

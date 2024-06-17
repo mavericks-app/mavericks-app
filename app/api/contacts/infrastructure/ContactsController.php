@@ -61,10 +61,10 @@ class ContactsController extends BaseController implements CrudController
     {
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'not_in:string'],
-            'last_name' => ['nullable', 'string', 'not_in:string'],
+            'name' => ['required', 'string', 'not_in:string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'not_in:string', 'max:255'],
             'birth_date' => ['nullable', 'date', 'not_in:string'],
-            'email' => ['required', 'string', 'email', 'not_in:user@example.com'],
+            'email' => ['required', 'string', 'email', 'not_in:user@example.com', 'max:255'],
             'phone' => ['nullable', 'string', 'not_in:string'],
             'phone2' => ['nullable', 'string', 'not_in:string'],
             'photo' => ['nullable', 'string', 'not_in:string'],
@@ -89,17 +89,16 @@ class ContactsController extends BaseController implements CrudController
 
         $data = $request->validate([
             'id' => ['required', 'integer'],
-            'name' => ['nullable', 'string', 'not_in:string'],
-            'last_name' => ['nullable', 'string', 'not_in:string'],
+            'name' => ['nullable', 'string', 'not_in:string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'not_in:string', 'max:255'],
             'birth_date' => ['nullable', 'date', 'date_format:Y-m-d', 'not_in:string'],
-            'email' => ['nullable', 'string', 'email', 'not_in:user@example.com'],
+            'email' => ['nullable', 'string', 'email', 'not_in:user@example.com', 'max:255'],
             'phone' => ['nullable', 'string', 'not_in:string'],
             'phone2' => ['nullable', 'string', 'not_in:string'],
             'photo' => ['nullable', 'string', 'not_in:string'],
             'address' => ['nullable', 'string', 'not_in:string'],
             'user_id' => ['sometimes', 'required', 'integer', 'exists:users,id'],
         ]);
-
 
         try {
 

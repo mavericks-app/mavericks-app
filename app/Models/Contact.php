@@ -37,11 +37,33 @@ class Contact extends Model
     }
 
     /**
+     * Set the contact's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = str_replace(' ', '', $value);
+    }
+
+    /**
+     * Set the contact's first name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPhone2Attribute($value)
+    {
+        $this->attributes['phone2'] = str_replace(' ', '', $value);
+    }
+
+    /**
      * Indica si el modelo debe tener timestamps.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
 
