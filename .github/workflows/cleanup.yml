@@ -1,0 +1,16 @@
+# .github/workflows/cleanup.yml
+name: Cleanup artifacts
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Corre cada domingo a medianoche
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List artifacts
+        run: |
+          artifacts=$(gh api -X GET /repos/${{ github.repository }}/actions/artifacts | jq -r '.artifacts | .[] | select(.expired == false) | "\(.id) \(.name)"')
+          echo "$artifacts"
