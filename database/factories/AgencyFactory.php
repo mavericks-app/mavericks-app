@@ -19,13 +19,13 @@ class AgencyFactory extends Factory
     {
 
         return [
-            'name' => $this->faker->firstName,
+            'name' => $this->faker->company,
             'agencyRole' => AgencyRole::Fake,
             'email' => $this->faker->unique()->companyEmail,
             'phone' => $this->generateRandomPhoneNumber(),
             'city' => $this->faker->city,
             'address' => $this->faker->address,
-            'website'>= $this->faker->domainName,
+            'website'=> $this->faker->domainName,
             'created_at' => now(),
             'updated_at' => now(),
         ];

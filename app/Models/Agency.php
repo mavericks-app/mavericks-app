@@ -35,9 +35,10 @@ class Agency extends Model
 
 
 
+
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class,"agency_id");
     }
 
 

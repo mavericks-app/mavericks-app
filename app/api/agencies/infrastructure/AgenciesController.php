@@ -4,6 +4,7 @@ namespace App\api\agencies\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\agencies\application\Agencies;
+use App\Enums\AgencyRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -57,9 +58,10 @@ class AgenciesController extends BaseController implements CrudController
     {
 
         $data = $request->validate([
-            'name'=>['required'],
-            'email' => ['required', 'email'],
-            ]);
+            'name'=>['required','string'],
+            'email' => ['required', 'email',"unique:agencies,email"],
+            'agencyRole'=>['required','string',"in:admin,client,faker"]
+        ]);
 
 
         $agency = $this->agencies->store($data);
@@ -76,6 +78,8 @@ class AgenciesController extends BaseController implements CrudController
         $data = $request->validate([
             'id'=>['required'],
             'name'=>['nullable','string'],
+            'email' => ['nullable', 'email',"unique:agencies,email"],
+            'agencyRole'=>['nullable','string',"in:admin,client,faker"]
         ]);
 
         try {

@@ -9,8 +9,6 @@ use Spatie\Permission\Models\Role;
 
 
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -33,6 +31,8 @@ class DatabaseSeeder extends Seeder
         "city"=>"Elche",
         "website"=>"https://maverickshomes.com"
         ]);
+
+        Agency::factory()->create();
 
         $user=User::factory()->create([
             'name' => 'admin',
