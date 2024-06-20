@@ -36,7 +36,7 @@ class UserRepository extends EloquentRepository
         if($this->model){
             $domain= $this->domain::create($this->model->toArray());
             $roles=$this->model->getRoleNames()->toArray();
-            $domain->setRoles(implode(",",$roles));
+            $domain->setRoles($roles);
             return $domain;
         }
         return null;

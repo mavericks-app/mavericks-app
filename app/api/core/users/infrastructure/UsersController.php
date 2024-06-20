@@ -87,6 +87,9 @@ class UsersController extends BaseController implements CrudController
             'name'=>['required'],
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'agency_id' => ['required', 'integer', 'exists:agencies,id'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['string'] // Asegura que cada elemento en el array de roles sea una cadena de texto
             ]);
 
 

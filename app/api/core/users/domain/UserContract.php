@@ -17,4 +17,8 @@ interface UserContract
 
   public function getRoles(): array;
 
+  public function hasRole(array $arr):bool;
+
+  public function assignRoleUser($id,Array $roles);
+
 }

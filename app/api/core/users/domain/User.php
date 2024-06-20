@@ -20,7 +20,7 @@ class User extends BaseDomain implements \JsonSerializable
     public string $token="";
     public string $password;
     public int $agency_id;
-    public string $roles="";
+    public array $roles=[];
 
 
     public function getId()
