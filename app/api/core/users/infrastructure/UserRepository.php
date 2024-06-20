@@ -25,4 +25,9 @@ class UserRepository extends EloquentRepository
         $users= $this->where(["email"=>$email]);
         return !($users->count()>0);
     }
+
+    public function contacts()
+    {
+        return $this->model->contacts;
+    }
 }

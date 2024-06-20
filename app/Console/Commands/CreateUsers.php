@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class CreateUsers extends Command
 {
@@ -36,7 +37,13 @@ class CreateUsers extends Command
     public function handle()
     {
         $count = (int) $this->argument('count');
-        User::factory()->count($count)->create();
+
+        $userRole = Role::where('name', 'user')->first();
+
+        for ($i = 0; $i < $count; $i++) {
+            $user=User::factory()->create();
+            $user->assignRole($userRole);
+        }
 
         $this->info("Se han creado {$count} usuarios.");
     }

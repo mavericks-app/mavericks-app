@@ -4,6 +4,7 @@ namespace App\api\templates\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\templates\application\Templates;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 
@@ -23,10 +24,14 @@ class TemplatesController extends BaseController implements CrudController
     public function get(Request $request)
     {
 
-        $template = $this->templates->getId($request->id);
+        try {
+            $template = $this->templates->getId($request->id);
 
-        if ($template) {
-            return $this->sendResponse($template, 'Templates get');
+            if ($template) {
+                return $this->sendResponse($template, 'Templates get');
+            }
+         }catch (ModelNotFoundException $e){
+            return $this->sendError('Template not found', 404);
         }
 
     }
@@ -73,11 +78,18 @@ class TemplatesController extends BaseController implements CrudController
             'name'=>['nullable','string'],
         ]);
 
-        $template = $this->templates->update($data);
+        try {
 
-        if ($template) {
-            return $this->sendResponse($template, 'Templates update');
+            $template = $this->templates->update($data);
+
+            if ($template) {
+                return $this->sendResponse($template, 'Templates update');
+            }
+
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('Template not found', 404);
         }
+
 
     }
 
@@ -95,8 +107,8 @@ class TemplatesController extends BaseController implements CrudController
                 return $this->sendResponse($template, 'Templates deleted');
             }
 
-        }catch (\Exception $e){
-            throw  new \Exception("Not found model template");
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('Template not found', 404);
         }
 
     }

@@ -11,6 +11,7 @@ use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\contacts\infrastructure\ContactRepository;
 use App\api\contacts\domain\Contact;
+use App\api\core\users\domain\User;
 
 
 class Contacts extends BaseApplication
@@ -24,6 +25,11 @@ class Contacts extends BaseApplication
         $this->repository=$repository;
         $this->domainClass=Contact::class;
 
+    }
+
+    public function user()
+    {
+        return User::create($this->repository->user()->toArray());
     }
 
 }
