@@ -1,11 +1,9 @@
 <?php
 namespace App\api\core\users\infrastructure;
-use App\api\core\users\infrastructure\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/login', [UsersController::class, 'login']);
-
 
 
 Route::middleware('auth:sanctum')->group(function () {

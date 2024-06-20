@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use App\Models\Agency;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,9 +21,11 @@ class DatabaseSeeder extends Seeder
         User::truncate();  // Esto elimina todos los registros en la tabla users
         Role::truncate();
 
-        $roleSuperAdmin = Role::create(['guard_name' => 'api','name' => 'superadmin']);
-        $roleAdmin = Role::create(['guard_name' => 'api','name' => 'admin']);
-        $roleUser = Role::create(['guard_name' => 'api','name' => 'user']);
+        //Creamos roles
+        $roleSuperAdmin = Role::create(['name' => UserRole::SuperAdmin]);
+        $roleAdmin = Role::create(['name' => UserRole::Admin]);
+        $roleUser = Role::create(['name' => UserRole::User]);
+        $roleClient = Role::create(['name' => UserRole::Client]);
 
         $agency=Agency::factory()->create([
         "name"=>"Mavericks Development",

@@ -4,10 +4,12 @@ namespace App\api\agencies\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\agencies\application\Agencies;
+use App\api\core\users\infrastructure\UserGuard;
 use App\Enums\AgencyRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 
 class AgenciesController extends BaseController implements CrudController

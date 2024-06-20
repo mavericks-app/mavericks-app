@@ -9,7 +9,6 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserGuard implements UserContract {
 
 
-
     public function getUser()
     {
         return Auth::user();
@@ -32,4 +31,8 @@ class UserGuard implements UserContract {
         return true;
     }
 
+    public function getRoles(): array
+    {
+        return $this->getUser()->getRoleNames()->toArray();
+    }
 }

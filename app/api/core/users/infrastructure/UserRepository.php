@@ -30,4 +30,18 @@ class UserRepository extends EloquentRepository
     {
         return $this->model->contacts;
     }
+
+    public function find($id):?BaseDomain{
+        $this->model=$this->model::findOrFail($id);
+        if($this->model){
+            $domain= $this->domain::create($this->model->toArray());
+            $roles=$this->model->getRoleNames()->toArray();
+            $domain->setRoles(implode(",",$roles));
+            return $domain;
+        }
+        return null;
+    }
+
+
+
 }

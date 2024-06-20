@@ -15,4 +15,6 @@ interface UserContract
   public function logout();
   public function getToken();
 
+  public function getRoles(): array;
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\UserRole;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -38,7 +39,7 @@ class CreateUsers extends Command
     {
         $count = (int) $this->argument('count');
 
-        $userRole = Role::where('name', 'user')->first();
+        $userRole = Role::where('name', UserRole::User)->first();
 
         for ($i = 0; $i < $count; $i++) {
             $user=User::factory()->create();

@@ -38,6 +38,10 @@ class Users extends BaseApplication
 
             $userModel = $this->userService->getUser();
             $userDomain= $this->domainClass::create($userModel->toArray());
+
+            $roles=$userModel->getRoleNames()->toArray();
+            $userDomain->setRoles(implode(",",$roles));
+
             $userDomain->setToken($this->userService->getToken());
 
             return $userDomain;
@@ -49,11 +53,13 @@ class Users extends BaseApplication
 
     }
 
+
+
     public function store($data)
     {
         if($this->repository->checkUniqueEmail($data["email"])) {
-           return parent::store($data);
-        }else{
+           $domain=parent::store($data);
+           }else{
             throw new \Exception("User exists email");
         }
     }
@@ -66,7 +72,8 @@ class Users extends BaseApplication
 
     public function whoami()
     {
-        return $this->domainClass::create($this->userService->getUser()->toArray());
+        $domain=$this->domainClass::create($this->userService->getUser()->toArray());
+
     }
 
 
