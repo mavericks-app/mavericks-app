@@ -6,4 +6,5 @@
     App\Providers\UserService::class,
     App\Providers\TemplatesProvider::class,
     App\Providers\ContactsProvider::class,
+    App\Providers\AgenciesProvider::class,
 ];

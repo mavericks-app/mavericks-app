@@ -19,6 +19,7 @@ class User extends BaseDomain implements \JsonSerializable
     public \DateTime $updated_at;
     public string $token="";
     public string $password;
+    public int $agency_id;
 
 
     public function getId()
@@ -35,6 +36,7 @@ class User extends BaseDomain implements \JsonSerializable
 
         $user_arr=[
             'id' => $this->id,
+            'idAgency'=>$this->agency_id,
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at,
