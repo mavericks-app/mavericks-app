@@ -31,6 +31,7 @@ class Deploy extends Command
      */
     public function handle()
     {
+        /*
         Artisan::call("config:cache");
         $this->info(Artisan::output());
         Artisan::call("event:cache");
@@ -41,5 +42,6 @@ class Deploy extends Command
         $this->info(Artisan::output());
         Artisan::call("optimize:clear");
         $this->info(Artisan::output());
+        */
     }
 }
