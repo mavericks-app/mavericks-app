@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Agency;
 use Laravel\Sanctum\Sanctum;
 use Carbon\Carbon;
 
@@ -19,6 +20,7 @@ class CreateContactTest extends TestCase
     public function test_new_contact_can_be_created(): void
     {
 
+        $agency = Agency::factory()->create();
         $user = User::factory()->create();
 
         Sanctum::actingAs($user);
