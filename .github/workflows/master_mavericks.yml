@@ -40,7 +40,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      - name: Run tests
+      - name: Run tests (env=testing)
         run: php artisan test --env=testing
 
       - name: Zip artifact for deployment
