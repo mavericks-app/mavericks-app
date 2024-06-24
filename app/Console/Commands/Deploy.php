@@ -31,8 +31,6 @@ class Deploy extends Command
      */
     public function handle()
     {
-        Artisan::call("migrate");
-        $this->info(Artisan::output());
         Artisan::call("config:cache");
         $this->info(Artisan::output());
         Artisan::call("event:cache");
