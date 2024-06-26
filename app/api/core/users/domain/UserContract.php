@@ -23,6 +23,6 @@ interface UserContract
 
   public function getPermissions();
 
-  public function hasPermissions(array $permissions):bool;
+  public function can(array $permissions):bool;
 
 }

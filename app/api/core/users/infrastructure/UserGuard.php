@@ -64,12 +64,12 @@ class UserGuard implements UserContract {
 
     public function getPermissions(){
 
-        $permissions=$this->getUser()->getAllPermissions()->pluck('name');
+        $permissions=$this->getUser()->getAllPermissions()->pluck('name')->toArray();
         return $permissions;
 
     }
 
-    public function hasPermissions(array $permissions):bool{
+    public function can(array $permissions):bool{
 
         $user = $this->getUser();
 

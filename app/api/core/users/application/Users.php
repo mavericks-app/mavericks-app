@@ -41,7 +41,7 @@ class Users extends BaseApplication
             $userDomain= $this->domainClass::create($userModel->toArray());
 
             $userDomain->setRoles($this->userService->getRoles());
-
+            $userDomain->setPermissions($this->userService->getPermissions());
             $userDomain->setToken($this->userService->getToken());
 
             return $userDomain;

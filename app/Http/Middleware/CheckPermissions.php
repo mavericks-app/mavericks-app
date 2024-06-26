@@ -27,7 +27,7 @@ class CheckPermissions
     public function handle(Request $request, Closure $next,...$permissions): Response
     {
 
-        if ($this->userService->hasPermissions($permissions)) {
+        if ($this->userService->can($permissions)) {
             return $next($request);
         }
 
