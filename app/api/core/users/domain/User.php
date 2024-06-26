@@ -20,6 +20,8 @@ class User extends BaseDomain implements \JsonSerializable
     public string $token="";
     public string $password;
     public int $agency_id;
+    public array $roles=[];
+    public array $permissions=[];
 
 
     public function getId()
@@ -40,16 +42,28 @@ class User extends BaseDomain implements \JsonSerializable
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at
         ];
 
         if ($this->token != '') {
             $user_arr["token"]=$this->token;
+            $user_arr['roles']=$this->roles;
+            $user_arr['permissions']=$this->permissions;
         }
 
         return $user_arr;
     }
 
+
+    public function setRoles($roles)
+    {
+        $this->roles=$roles;
+    }
+
+    public function setPermissions($permissions)
+    {
+        $this->permissions=$permissions;
+    }
 
 
 }

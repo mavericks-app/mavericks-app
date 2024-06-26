@@ -11,6 +11,7 @@ use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\agencies\infrastructure\AgencyRepository;
 use App\api\agencies\domain\Agency;
+use App\api\core\users\domain\User;
 
 
 class Agencies extends BaseApplication
@@ -23,6 +24,27 @@ class Agencies extends BaseApplication
         parent::__construct();
         $this->repository=$repository;
         $this->domainClass=Agency::class;
+
+    }
+
+    public function getId($id)
+    {
+        $agency= $this->repository->find($id);
+
+        /*
+         * Ejemplo relacion users
+         $arrUsers=[];
+        $users=$this->repository->getModel()->users;
+        if($users->count()>0){
+            foreach($users as $user){
+                $arrUsers[]=User::create($user->toArray());
+            }
+        }
+
+        */
+
+        return $agency;
+
 
     }
 

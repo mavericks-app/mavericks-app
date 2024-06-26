@@ -4,10 +4,13 @@ namespace App\api\agencies\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\agencies\application\Agencies;
+use App\api\core\users\infrastructure\UserGuard;
 use App\Enums\AgencyRole;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 
 class AgenciesController extends BaseController implements CrudController
@@ -60,7 +63,7 @@ class AgenciesController extends BaseController implements CrudController
         $data = $request->validate([
             'name'=>['required','string'],
             'email' => ['required', 'email',"unique:agencies,email"],
-            'agencyRole'=>['required','string',"in:admin,client,faker"]
+            'agencyRole'=>['required','string',"in:".AgencyRole::rolesString()]
         ]);
 
 

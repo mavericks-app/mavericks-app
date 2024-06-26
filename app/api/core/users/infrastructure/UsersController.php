@@ -4,6 +4,7 @@ namespace App\api\core\users\infrastructure;
 use App\api\core\shared\contracts\infrastructure\CrudController;
 use App\api\core\shared\contracts\infrastructure\BaseController;
 use App\api\core\users\application\Users;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -87,8 +88,10 @@ class UsersController extends BaseController implements CrudController
             'name'=>['required'],
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'agency_id' => ['required', 'integer', 'exists:agencies,id'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['string','in:'.UserRole::rolesString()] // Asegura que cada elemento en el array de roles sea una cadena de texto
             ]);
-
 
         $user = $this->users->store($data);
 

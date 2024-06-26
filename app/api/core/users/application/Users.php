@@ -12,6 +12,7 @@ use App\api\core\shared\contracts\application\BaseApplication;
 use App\api\core\shared\contracts\domain\RepositoryBD;
 use App\api\core\users\infrastructure\UserRepository;
 use App\api\core\users\domain\User;
+use App\Enums\UserRole;
 
 
 class Users extends BaseApplication
@@ -38,6 +39,9 @@ class Users extends BaseApplication
 
             $userModel = $this->userService->getUser();
             $userDomain= $this->domainClass::create($userModel->toArray());
+
+            $userDomain->setRoles($this->userService->getRoles());
+            $userDomain->setPermissions($this->userService->getPermissions());
             $userDomain->setToken($this->userService->getToken());
 
             return $userDomain;
@@ -49,12 +53,27 @@ class Users extends BaseApplication
 
     }
 
+
+
     public function store($data)
     {
         if($this->repository->checkUniqueEmail($data["email"])) {
-           return parent::store($data);
-        }else{
-            throw new \Exception("User exists email");
+
+            if(!isset($data["roles"])){
+                $data["roles"]=[UserRole::User];
+            }
+
+              $domain=parent::store($data);
+
+               if($domain->getId()>0){
+                   $this->userService->assignRoleUser($domain->getId(),$data["roles"]);
+                   $domain->setRoles($this->userService->getRoles($domain->getId()));
+               }
+
+           return $domain;
+
+           }else{
+             throw new \Exception("User exists email");
         }
     }
 
@@ -66,7 +85,16 @@ class Users extends BaseApplication
 
     public function whoami()
     {
-        return $this->domainClass::create($this->userService->getUser()->toArray());
+        $domain=$this->domainClass::create($this->userService->getUser()->toArray());
+        $userModel = $this->userService->getUser();
+        $domain->setRoles($this->userService->getRoles());
+        return $domain;
+
+    }
+
+    public function getUserService()
+    {
+        return $this->userService;
     }
 
 

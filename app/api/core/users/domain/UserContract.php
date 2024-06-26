@@ -15,4 +15,14 @@ interface UserContract
   public function logout();
   public function getToken();
 
+  public function getRoles(): array;
+
+  public function hasRole(array $arr):bool;
+
+  public function assignRoleUser($id,Array $roles);
+
+  public function getPermissions();
+
+  public function can(array $permissions):bool;
+
 }

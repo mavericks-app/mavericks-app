@@ -1,7 +1,5 @@
 <?php
 namespace App\api\templates\infrastructure;
-use App\api\templates\infrastructure\TemplatesController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
