@@ -93,5 +93,9 @@ class EloquentRepository implements RepositoryBD
         return $this->model->paginate($perPage)->toArray();
     }
 
+    public function getModel(){
+        return $this->model;
+    }
+
 
 }
