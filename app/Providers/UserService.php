@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\api\core\users\domain\UserContract;
 use App\api\core\users\infrastructure\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use App\api\core\users\application\Users;
@@ -17,6 +18,9 @@ class UserService extends ServiceProvider
 {
 
 
+    public $bindings = [
+        UserContract::class => UserGuard::class
+    ];
 
     /**
      * Register services.
@@ -31,12 +35,7 @@ class UserService extends ServiceProvider
             );
         });
 
-        // Registrar UserGuard como singleton
-        $this->app->singleton(UserGuard::class, function (Application $app) {
-            return new UserGuard();
-        });
-
-         // Registrar Users singleton, asegurando que las dependencias se resuelvan adecuadamente
+          // Registrar Users singleton, asegurando que las dependencias se resuelvan adecuadamente
         $this->app->singleton(Users::class, function (Application $app) {
             return new Users(
                 $app->make(UserGuard::class), // Resolver UserGuard
@@ -53,5 +52,10 @@ class UserService extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    public function provides(): array
+    {
+        return [Users::class];
     }
 }

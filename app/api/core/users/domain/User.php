@@ -29,6 +29,10 @@ class User extends BaseDomain implements \JsonSerializable
         return $this->id;
     }
 
+    public function getAgencyId(){
+        return $this->agency_id;
+    }
+
     public function setToken(string $token)
     {
         $this->token=$token;
@@ -64,6 +68,34 @@ class User extends BaseDomain implements \JsonSerializable
     {
         $this->permissions=$permissions;
     }
+
+    public function hasRoles($rolesSearch)
+    {
+
+        $hasRole=false;
+
+        if(count($this->roles)>0){
+            $roles=array_column($this->roles,"name");
+            foreach($rolesSearch as $roleSearch){
+                if(in_array($roleSearch,$roles)){
+                    $hasRole=true;
+                    break;
+                }
+            }
+        }
+
+        return $hasRole;
+
+    }
+
+    public function can($permissions)
+    {
+
+
+
+
+    }
+
 
 
 }

@@ -14,14 +14,14 @@ class UnauthorizedExceptionHandler extends ExceptionsHandler
      $this->request=$request;
      $this->response_code=401;
  }
-public function getResponse(){
+    public function getResponse(){
 
-    $response = [
-        'success' => false,
-        'message'=>"Unauthorized"
-    ];
-    return response()->json($response, $this->response_code);
+        $response = [
+            'success' => false,
+            'message'=>"Unauthorized"
+        ];
+        return response()->json($response, $this->response_code);
 
-}
+    }
 
 }

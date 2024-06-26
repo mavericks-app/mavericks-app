@@ -10,6 +10,7 @@ namespace App\api\core\users\domain;
 
 interface UserContract
 {
+   public function getModel();
   public function getUser();
   public function autenticate($credentials);
   public function logout();

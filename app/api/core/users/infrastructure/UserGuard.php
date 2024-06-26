@@ -1,6 +1,7 @@
 <?php
 namespace App\api\core\users\infrastructure;
 
+use App\api\core\users\domain\User;
 use App\api\core\users\domain\UserContract;
 use App\Enums\UserRole;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,19 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class UserGuard implements UserContract {
 
 
-    public function getUser()
+
+    public function getModel()
     {
         return Auth::user();
     }
+
+    public function getUser()
+    {
+        $domain= User::create($this->getModel()->toArray());
+        $domain->setPermissions($this->getPermissions());
+        return $domain;
+    }
+
 
     public function autenticate($credentials){
         return Auth::attempt($credentials);
@@ -27,7 +37,7 @@ class UserGuard implements UserContract {
 
     public function logout()
     {
-        $user=$this->getUser();
+        $user=$this->getModel();
         $user->currentAccessToken()->delete();
         Session::flush();
         return true;
@@ -36,21 +46,21 @@ class UserGuard implements UserContract {
     public function getRoles($idUser=""): array
     {
         if($idUser>0){
-            $user=$this->getUser()->findOrFail($idUser);
+            $user=$this->getModel()->findOrFail($idUser);
             return $user->getRoleNames()->toArray();
         }else {
-            return $this->getUser()->getRoleNames()->toArray();
+            return $this->getModel()->getRoleNames()->toArray();
         }
     }
 
     public function hasRole(Array $roles):bool
     {
-        return $this->getUser()->hasAnyRole($roles);
+        return $this->getModel()->hasAnyRole($roles);
     }
 
     public function assignRoleUser($id,Array $roles)
     {
-        $user=$this->getUser()->findOrFail($id);
+        $user=$this->getModel()->findOrFail($id);
 
             $roleClientArr = Role::whereIn('name', $roles)->get();
 
@@ -64,14 +74,14 @@ class UserGuard implements UserContract {
 
     public function getPermissions(){
 
-        $permissions=$this->getUser()->getAllPermissions()->pluck('name')->toArray();
+        $permissions=$this->getModel()->getAllPermissions()->pluck('name')->toArray();
         return $permissions;
 
     }
 
     public function can(array $permissions):bool{
 
-        $user = $this->getUser();
+        $user = $this->getModel();
 
         if ($user) {
             foreach ($permissions as $permission) {
