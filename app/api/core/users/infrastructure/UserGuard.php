@@ -21,6 +21,7 @@ class UserGuard implements UserContract {
     public function getUser()
     {
         $domain= User::create($this->getModel()->toArray());
+        $domain->setRoles($this->getRoles());
         $domain->setPermissions($this->getPermissions());
         return $domain;
     }
@@ -32,7 +33,7 @@ class UserGuard implements UserContract {
 
     public function getToken()
     {
-        return $this->getUser()->createToken('JWT')->plainTextToken;
+        return $this->getModel()->createToken('JWT')->plainTextToken;
     }
 
     public function logout()
