@@ -27,7 +27,7 @@ class UserGuard implements UserContract {
 
     public function logout()
     {
-        $user=Auth::user();
+        $user=$this->getUser();
         $user->currentAccessToken()->delete();
         Session::flush();
         return true;
@@ -45,13 +45,12 @@ class UserGuard implements UserContract {
 
     public function hasRole(Array $roles):bool
     {
-        return $this->getUser()->hasRole($roles);
+        return $this->getUser()->hasAnyRole($roles);
     }
 
     public function assignRoleUser($id,Array $roles)
     {
         $user=$this->getUser()->findOrFail($id);
-
 
             $roleClientArr = Role::whereIn('name', $roles)->get();
 
@@ -60,6 +59,29 @@ class UserGuard implements UserContract {
                     $user->assignRole($role);
                 }
             }
+
+    }
+
+    public function getPermissions(){
+
+        $permissions=$this->getUser()->getAllPermissions()->pluck('name');
+        return $permissions;
+
+    }
+
+    public function hasPermissions(array $permissions):bool{
+
+        $user = $this->getUser();
+
+        if ($user) {
+            foreach ($permissions as $permission) {
+                if ($user->can($permission)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
 
     }
 }

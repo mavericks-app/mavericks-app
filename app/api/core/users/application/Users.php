@@ -92,6 +92,11 @@ class Users extends BaseApplication
 
     }
 
+    public function getUserService()
+    {
+        return $this->userService;
+    }
+
 
 
 }

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use App\api\core\shared\contracts\infrastructure\ExceptionsHandler\ExceptionsHandler;
 use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\CheckPermissions;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => CheckRole::class,
+            'permissions'=> CheckPermissions::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

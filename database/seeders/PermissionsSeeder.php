@@ -17,22 +17,27 @@ class PermissionsSeeder extends Seeder
     public function run(): void
     {
 
-        $roleSuperAdmin = Role::where(['name' => 'superadmin']);
-        $roleAdmin = Role::where(['name' => 'admin']);
-        $roleUser = Role::where(['name' => 'user']);
+        $roleSuperAdmin = Role::where(['name' => 'superadmin'])->first();
+        $roleAdmin = Role::where(['name' => 'admin'])->first();
+        $roleUser = Role::where(['name' => 'user'])->first();
 
-        Permission::create(['name' => Permissions::AgencyList]);
-        Permission::create(['name' => Permissions::AgencyCreate]);
-        Permission::create(['name' => Permissions::AgencyEdit]);
-        Permission::create(['name' => Permissions::AgencyRemove]);
+        Permission::firstOrCreate(['name' => Permissions::AgencyList]);
+        Permission::firstOrCreate(['name' => Permissions::AgencyCreate]);
+        Permission::firstOrCreate(['name' => Permissions::AgencyGet]);
+        Permission::firstOrCreate(['name' => Permissions::AgencyEdit]);
+        Permission::firstOrCreate(['name' => Permissions::AgencyRemove]);
 
         $roleSuperAdmin->syncPermissions([
             Permissions::AgencyList,
             Permissions::AgencyCreate,
+            Permissions::AgencyGet,
             Permissions::AgencyEdit,
             Permissions::AgencyRemove,
         ]);
 
+        $roleAdmin->syncPermissions([
+            Permissions::AgencyGet
+        ]);
 
     }
 }

@@ -4,14 +4,13 @@ namespace App\Http\Middleware;
 
 use App\api\core\users\application\Users;
 use App\api\core\users\domain\UserContract;
-use App\api\core\users\infrastructure\UserGuard;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRole
+class CheckPermissions
 {
     /**
      * Handle an incoming request.
@@ -19,23 +18,21 @@ class CheckRole
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
 
-
     private UserContract $userService;
 
     public function __construct(Users $users){
         $this->userService=$users->getUserService();
     }
 
-    public function handle(Request $request, Closure $next,...$roles): Response
+    public function handle(Request $request, Closure $next,...$permissions): Response
     {
-        // Obtener el usuario autenticado
 
-        // Verificar si el usuario está autenticado y tiene al menos uno de los roles proporcionados
-        if ($this->userService && $this->userService->hasRole($roles)) {
+        if ($this->userService->hasPermissions($permissions)) {
             return $next($request);
         }
 
         // Redirigir o devolver una respuesta de error según sea necesario
         return response()->json(['error' => 'Unauthorized'], 401);
+
     }
 }
