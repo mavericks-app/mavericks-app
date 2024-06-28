@@ -80,7 +80,7 @@ class TemplatesController extends BaseController implements CrudController
 
         try {
 
-            $template = $this->templates->update($data);
+            $template = $this->templates->update($request->all());
 
             if ($template) {
                 return $this->sendResponse($template, 'Templates update');

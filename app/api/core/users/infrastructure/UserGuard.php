@@ -61,12 +61,20 @@ class UserGuard implements UserContract {
 
     public function assignRoleUser($id,Array $roles)
     {
-        $user=$this->getModel()->findOrFail($id);
+            $user=$this->getModel()->findOrFail($id);
 
-            $roleClientArr = Role::whereIn('name', $roles)->get();
+            $roleClientArr = $user->getRoleNames()->toArray();
 
-            if($roleClientArr->isNotEmpty()){
-                foreach($roleClientArr as $role) {
+            if(count($roleClientArr)>0){
+
+                $rolesToRemove = array_diff($roleClientArr , $roles);
+                $rolesToAdd = array_diff($roles, $roleClientArr );
+
+                foreach ($rolesToRemove as $roleName) {
+                        $user->removeRole($roleName);
+                }
+
+                foreach ($rolesToAdd as $role){
                     $user->assignRole($role);
                 }
             }

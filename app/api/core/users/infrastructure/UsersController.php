@@ -105,14 +105,15 @@ class UsersController extends BaseController implements CrudController
     {
 
         $data = $request->validate([
-            'id' => ['required'],
+            'id' => ['required','integer'],
+            'email' => ['required', 'email'],
             'name' => ['nullable', 'string'],
             'password' => ['nullable', 'string']
         ]);
 
         try {
 
-            $user = $this->users->update($data);
+            $user = $this->users->update($request->all());
 
             if ($user) {
                 return $this->sendResponse($user, 'User update');

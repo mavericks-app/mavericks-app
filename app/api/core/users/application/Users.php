@@ -59,18 +59,34 @@ class Users extends BaseApplication
                 $data["roles"]=[UserRole::User];
             }
 
-              $domain=parent::store($data);
+            $this->checkRoles($data["roles"]);
 
-               if($domain->getId()>0){
-                   $this->userService->assignRoleUser($domain->getId(),$data["roles"]);
-                   $domain->setRoles($this->userService->getRoles($domain->getId()));
-               }
+            $domain=parent::store($data);
 
-           return $domain;
+            $this->assingRoles($domain, $data["roles"]);
+
+            return $domain;
 
            }else{
              throw new \Exception("User exists email");
         }
+    }
+
+    public function update($data)
+    {
+
+            if(!isset($data["roles"])){
+                $data["roles"]=[UserRole::User];
+            }
+
+            $this->checkRoles($data["roles"]);
+
+            $domain=parent::update($data);
+
+            $this->assingRoles($domain, $data["roles"]);
+
+            return $domain;
+
     }
 
     public function logout()
@@ -93,6 +109,30 @@ class Users extends BaseApplication
         return $this->userService;
     }
 
+    /**
+     * @param $roles
+     * @return void
+     * @throws \Exception
+     */
+    public function checkRoles($roles): void
+    {
+        if (in_array(UserRole::SuperAdmin->value, $roles) && !$this->userService->hasRole([UserRole::SuperAdmin])) {
+            throw new \Exception("Assign role need user superadmin");
+        }
+    }
+
+    /**
+     * @param $domain
+     * @param $roles
+     * @return void
+     */
+    public function assingRoles(&$domain, $roles): void
+    {
+        if ($domain->getId() > 0) {
+            $this->userService->assignRoleUser($domain->getId(), $roles);
+            $domain->setRoles($this->userService->getRoles($domain->getId()));
+        }
+    }
 
 
 }

@@ -88,13 +88,6 @@ class User extends BaseDomain implements \JsonSerializable
 
     }
 
-    public function can($permissions)
-    {
-
-
-
-
-    }
 
 
 
